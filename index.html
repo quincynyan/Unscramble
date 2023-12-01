@@ -1,0 +1,344 @@
+<!-- FILEPATH: /D:/projects/Unscramble/index.html -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Image Gallery</title>
+		<style>
+			/* Style for the grid container */
+			.grid-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				grid-gap: 10px;
+				padding: 10px;
+			}
+
+			/* Style for the grid items */
+			.grid-item {
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+			}
+
+			/* Style for the image */
+			.grid-item img {
+				width: 100%;
+				height: auto;
+				transition: transform 0.2s ease-in-out;
+			}
+
+			/* Style for the image name */
+			.grid-item .img-name {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background-color: rgba(0, 0, 0, 0.7);
+				color: #fff;
+				padding: 10px;
+				font-size: 14px;
+				text-align: center;
+				opacity: 0;
+				transition: opacity 0.2s ease-in-out;
+			}
+
+			/* Style for the image name on hover */
+			.grid-item:hover .img-name {
+				opacity: 1;
+			}
+
+			/* Style for the image on hover */
+			.grid-item:hover img {
+				transform: scale(1.1);
+			}
+
+			/* Style for the modal */
+			.modal {
+				display: none;
+				position: fixed;
+				z-index: 1;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				background-color: rgba(0, 0, 0, 0.9);
+			}
+
+			/* Style for the modal content */
+			.modal-content {
+				margin: auto;
+				display: block;
+				width: 80%;
+				max-width: 700px;
+				max-height: 80%;
+			}
+
+			/* Style for the modal image */
+			.modal-content img {
+				width: 100%;
+				height: auto;
+			}
+
+			/* Style for the close button */
+			.close {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				color: #fff;
+				font-size: 30px;
+				font-weight: bold;
+				cursor: pointer;
+			}
+
+			/* Style for the arrow buttons */
+			.arrow {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				font-size: 50px;
+				color: #fff;
+				cursor: pointer;
+			}
+
+			/* Style for the left arrow button */
+			.prev {
+				left: 10px;
+			}
+
+			/* Style for the right arrow button */
+			.next {
+				right: 10px;
+			}
+
+			/* Style for the caption text */
+			#caption {
+				margin: auto;
+				display: block;
+				/* width: 80%; */
+				/* max-width: 700px; */
+				text-align: center;
+				color: #ccc;
+				padding: 10px 0;
+				/* height: 150px; */
+			}
+
+			/* Style for the caption text on hover and focus */
+			#caption:hover,
+			#caption:focus {
+				color: #fff;
+			}
+
+			/* Style for the close button on hover and focus */
+			.close:hover,
+			.close:focus {
+				color: #fff;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			/* Style for the arrow buttons on hover and focus */
+			.arrow:hover,
+			.arrow:focus {
+				color: #fff;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			/* Style for the modal content on hover */
+			.modal-content:hover {
+				cursor: pointer;
+			}
+
+			/* Style for the modal content on hover */
+			.modal-content:hover .arrow {
+				opacity: 1;
+			}
+
+			/* Style for the modal content on hover */
+			.modal-content:hover #caption {
+				opacity: 1;
+			}
+
+			/* Style for the modal content on hover */
+			.modal-content:hover .close {
+				opacity: 1;
+			}
+
+			/* Style for the modal content on hover */
+			.modal-content:hover .arrow {
+				opacity: 1;
+			}
+
+			@media only screen and (max-width: 768px) {
+				.grid-container {
+					grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+				}
+
+				.grid-item .img-name {
+					font-size: 12px;
+				}
+
+				.modal-content {
+					width: 90%;
+				}
+			}
+
+			#modal-image {
+				height: calc(100vh - 20px);
+				width: auto;
+				position: relative;
+				left: 50%;
+				transform: translateX(-50%);
+				top: 10px;
+			}
+
+			#caption {
+				position: absolute;
+				top: 10px;
+				left: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="grid-container">
+			<!-- Loop through all the images in the directory -->
+
+			<!-- FILEPATH: /D:/projects/Unscramble/index.html -->
+
+			<script>
+				const gridContainer = document.querySelector(".grid-container");
+
+				imagenamelist = [
+					"InFile.png",
+					"OutFile.png",
+					"OutFile1.png",
+					"OutFile2.png",
+					"OutFile3.png",
+					"OutFile4.png",
+					"OutFile5.png",
+					"OutFile6.png",
+					"ps1.png",
+					"ps2.png",
+					"ps3.png",
+					"ps4.png",
+					"psOF.png",
+					"psOF2.png",
+					"psOF3.png",
+					"psOF4.png",
+					"test.png",
+					"test2.png"
+				];
+
+				imagenamelist.forEach((image) => {
+					const gridItem = document.createElement("div");
+					gridItem.classList.add("grid-item");
+
+					const img = document.createElement("img");
+					img.src = "./images/" + image + "";
+					img.alt = image;
+
+					const imgName = document.createElement("div");
+					imgName.classList.add("img-name");
+					imgName.innerHTML = image;
+
+					gridItem.appendChild(img);
+					gridItem.appendChild(imgName);
+					gridContainer.appendChild(gridItem);
+				});
+			</script>
+		</div>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<p id="caption"></p>
+			<span class="close">&times;</span>
+			<span class="arrow prev">&lt;</span>
+			<span class="arrow next">&gt;</span>
+			<div class="modal-content">
+				<img id="modal-image" src="" />
+			</div>
+		</div>
+
+		<script>
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			// Get the image and insert it inside the modal
+			var images = document.getElementsByTagName("img");
+			var modalImg = document.getElementById("modal-image");
+			var captionText = document.getElementById("caption");
+			var currentIndex = 0;
+
+			for (var i = 0; i < images.length; i++) {
+				images[i].onclick = function () {
+					modal.style.display = "block";
+					modalImg.src = this.src;
+					modalImg.onclick = function () {
+						window.open(this.src, "_blank");
+					};
+					currentIndex = Array.from(images).indexOf(this);
+					captionText.innerHTML = this.alt;
+					captionText.onclick = function () {
+						window.open(modalImg.src, "_blank");
+					};
+				};
+			}
+
+			// Close the modal
+			var span = document.getElementsByClassName("close")[0];
+			span.onclick = function () {
+				modal.style.display = "none";
+			};
+
+			// Navigate through the images using arrow keys
+			document.onkeydown = function (event) {
+				if (modal.style.display == "block") {
+					if (event.keyCode == 37) {
+						// Left arrow key
+						currentIndex--;
+						if (currentIndex < 0) {
+							currentIndex = images.length - 2;
+						}
+						modalImg.src = images[currentIndex].src;
+						captionText.innerHTML = images[currentIndex].alt;
+					} else if (event.keyCode == 39) {
+						// Right arrow key
+						currentIndex++;
+						if (currentIndex >= images.length - 1) {
+							currentIndex = 0;
+						}
+						modalImg.src = images[currentIndex].src;
+						captionText.innerHTML = images[currentIndex].alt;
+					} else if (event.keyCode == 27) {
+						// Escape key
+						modal.style.display = "none";
+					}
+				}
+			};
+
+			// Navigate through the images using arrow buttons
+			var prev = document.getElementsByClassName("prev")[0];
+			var next = document.getElementsByClassName("next")[0];
+
+			prev.onclick = function () {
+				currentIndex--;
+				if (currentIndex < 0) {
+					currentIndex = images.length - 2;
+				}
+				modalImg.src = images[currentIndex].src;
+				captionText.innerHTML = images[currentIndex].alt;
+			};
+
+			next.onclick = function () {
+				currentIndex++;
+				if (currentIndex >= images.length - 1) {
+					currentIndex = 0;
+				}
+				modalImg.src = images[currentIndex].src;
+				captionText.innerHTML = images[currentIndex].alt;
+			};
+		</script>
+	</body>
+</html>
